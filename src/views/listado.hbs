@@ -1,5 +1,11 @@
-<ul>
-    {{#each links}}
-    <li>{{this}}</li>
-    {{/each}}
-</ul>
+<div class="container">
+
+    <h1 >Listado de Imagenes</h1>
+    <ul>
+        {{#each links}}
+        <li>{{this}}</li>
+        {{else}}
+        <p>No hay Imagenes aún</p>
+        {{/each}}
+    </ul>
+</div>

@@ -9,17 +9,17 @@ const app = express();
 const imagesDirectory = path.join(__dirname, 'public/images')
 app.set('PORT', process.env.PORT || 3000)
 app.use(express.static(imagesDirectory))
-app.set('views',path.join(__dirname,'src','views'))
+app.set('views', path.join(__dirname, 'src', 'views'))
 
-app.engine('.hbs',exphbs({
+app.engine('.hbs', exphbs({
     defaultLayout: 'main',
-    layoutsDir:path.join(app.get('views'),'layouts'),
-    partialsDir:path.join(app.get('views'),'partials'),
-    extname:'.hbs',
+    layoutsDir: path.join(app.get('views'), 'layouts'),
+    partialsDir: path.join(app.get('views'), 'partials'),
+    extname: '.hbs',
     // helpers:require("./lib/handlerbars")
 }))
 
-app.set('view engine','.hbs')
+app.set('view engine', '.hbs')
 
 const multipartyMiddleware = multiparty({ uploadDir: imagesDirectory, });
 const LINKS = [];
@@ -27,14 +27,15 @@ const LINKS = [];
 
 app.post('/upload', multipartyMiddleware, (req, res) => {
     LINKS.push(req.files.file.originalFilename)
-    console.log('files',LINKS);
+    console.log('files', LINKS);
+    console.log('imagen subida',req.files);
     res.json({
-        success:true,
-        message:'Archivos recibidos'
+        success: true,
+        message: 'Archivos recibidos'
     })
 })
-app.get("/",(req,res)=>{
-    res.render('listado',{links:LINKS})
+app.get("/", (req, res) => {
+    res.render('listado', { links: LINKS })
 })
 
 
