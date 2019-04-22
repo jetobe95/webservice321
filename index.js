@@ -26,13 +26,21 @@ const LINKS = [];
 
 
 app.post('/upload', multipartyMiddleware, (req, res) => {
-    LINKS.push(req.files.file.originalFilename)
-    console.log('files', LINKS);
-    console.log('imagen subida',req.files);
-    res.json({
-        success: true,
-        message: 'Archivos recibidos'
-    })
+    if (req.files) {
+
+        LINKS.push(req.files.file.originalFilename)
+        console.log('files', LINKS);
+        console.log('imagen subida', req.files);
+        res.json({
+            success: true,
+            message: 'Archivos recibidos'
+        })
+    } else {
+        res.json({
+            success: false,
+            message: 'No se envio ninguna imagen'
+        })
+    }
 })
 app.get("/", (req, res) => {
     res.render('listado', { links: LINKS })
