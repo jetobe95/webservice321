@@ -53,14 +53,24 @@ app.post('/upload', multipartyMiddleware, (req, res) => {
 })
 app.get("/", async (req, res) => {
     let images =  await  getFiles()
+    images =  _.chain(images).map(i=>{
+        return `${URL}${i}`
+    }).filter(i=>{
+        const test =   /\.(png|jpg|gif)$/i.test(i)
+        console.log("TEST",test)
+        console.log("ITEM",i)
+        return test
+    }).value()
     res.render('listado', { links: images })
 })
 
 app.get('/images',async (req,res)=>{
    let images =  await  getFiles()
-    images =  _.map(images,i=>{
+    images =  _.chain(images).map(i=>{
         return `${URL}${i}`
-    })
+    }).filter(i=>{
+        return /\.(png|jpg|gif)$/i.test(i)
+    }).value()
    res.json({
        success:true,
        images:images
