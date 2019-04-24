@@ -3,7 +3,10 @@
     <h1 >Listado de Imagenes</h1>
     <ul>
         {{#each links}}
-        <li>{{this}}</li>
+        <li>
+            <img src="{{this}}" alt="" class="img-thumbnail  mt-2">
+        </li>
+
         {{else}}
         <p>No hay Imagenes aún</p>
         {{/each}}

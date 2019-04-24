@@ -2,11 +2,13 @@ const express = require('express');
 const multiparty = require('connect-multiparty');
 const exphbs = require("express-handlebars");
 const _ = require('lodash')
-
+const getFiles =  require('./lib')
 const path = require('path')
 const app = express();
 
-const imagesDirectory = path.join(__dirname, 'public/images')
+const imagesDirectory = path.join(__dirname, 'public/images');
+
+const URL = process.env.URL_BASE ||'http://localhost:3000/';
 app.set('PORT', process.env.PORT || 3000)
 app.use(express.static(imagesDirectory))
 app.set('views', path.join(__dirname, 'src', 'views'))
@@ -49,8 +51,20 @@ app.post('/upload', multipartyMiddleware, (req, res) => {
         })
     }
 })
-app.get("/", (req, res) => {
-    res.render('listado', { links: LINKS })
+app.get("/", async (req, res) => {
+    let images =  await  getFiles()
+    res.render('listado', { links: images })
+})
+
+app.get('/images',async (req,res)=>{
+   let images =  await  getFiles()
+    images =  _.map(images,i=>{
+        return `${URL}${i}`
+    })
+   res.json({
+       success:true,
+       images:images
+   })
 })
 
 
