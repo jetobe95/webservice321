@@ -35,7 +35,7 @@ const LINKS = [];
 app.post('/upload', multipartyMiddleware, (req, res) => {
     if (req.files && !_.isEmpty(req.files)) {
 
-        LINKS.push(req.files.file.originalFilename)
+        LINKS.push("Imagen Subida")
         console.log('files', LINKS);
         console.log('imagen subida', req.files);
         res.json({
