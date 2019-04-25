@@ -30,7 +30,7 @@ app.engine('.hbs', exphbs({
 
 app.set('view engine', '.hbs')
 
-const multipartyMiddleware = multiparty({ uploadDir: imagesDirectory, });
+const multipartyMiddleware = multiparty({ uploadDir: imagesDirectory,autoFiles:true });
 const LINKS = [];
 
 
