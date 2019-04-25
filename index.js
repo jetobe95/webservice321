@@ -11,7 +11,7 @@ const imagesDirectory = path.join(__dirname, 'public', 'images');
 const URL = process.env.URL_BASE || 'http://localhost:3000/';
 app.set('PORT', process.env.PORT || 3000)
 app.use(express.static(imagesDirectory))
-app.set('views', path.join(__dirname, 'src', 'views'))
+app.set('views',  path.join(__dirname, 'src', 'views'))
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
