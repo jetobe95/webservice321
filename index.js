@@ -6,7 +6,7 @@ const getFiles =  require('./lib')
 const path = require('path')
 const app = express();
 
-const imagesDirectory = path.join(__dirname, 'public/images');
+const imagesDirectory = path.join(__dirname, 'public','images');
 
 const URL = process.env.URL_BASE ||'http://localhost:3000/';
 app.set('PORT', process.env.PORT || 3000)
