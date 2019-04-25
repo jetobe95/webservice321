@@ -2,13 +2,13 @@ const express = require('express');
 const multiparty = require('connect-multiparty');
 const exphbs = require("express-handlebars");
 const _ = require('lodash')
-const getFiles =  require('./lib')
+const getFiles = require('./lib')
 const path = require('path')
 const app = express();
 
-const imagesDirectory = path.join(__dirname, 'public','images');
+const imagesDirectory = path.join(__dirname, 'public', 'images');
 
-const URL = process.env.URL_BASE ||'http://localhost:3000/';
+const URL = process.env.URL_BASE || 'http://localhost:3000/';
 app.set('PORT', process.env.PORT || 3000)
 app.use(express.static(imagesDirectory))
 app.set('views', path.join(__dirname, 'src', 'views'))
@@ -30,7 +30,7 @@ app.engine('.hbs', exphbs({
 
 app.set('view engine', '.hbs')
 
-const multipartyMiddleware = multiparty({ uploadDir: imagesDirectory,autoFiles:true });
+const multipartyMiddleware = multiparty({ uploadDir: imagesDirectory, autoFiles: true });
 const LINKS = [];
 
 
@@ -52,29 +52,29 @@ app.post('/upload', multipartyMiddleware, (req, res) => {
     }
 })
 app.get("/", async (req, res) => {
-    let images =  await  getFiles()
-    images =  _.chain(images).map(i=>{
+    let images = await getFiles()
+    images = _.chain(images).map(i => {
         return `${URL}${i}`
-    }).filter(i=>{
-        const test =   /\.(png|jpg|gif)$/i.test(i)
-        console.log("TEST",test)
-        console.log("ITEM",i)
+    }).filter(i => {
+        const test = /\.(png|jpg|gif)$/i.test(i)
+        console.log("TEST", test)
+        console.log("ITEM", i)
         return test
     }).value()
     res.render('listado', { links: images })
 })
 
-app.get('/images',async (req,res)=>{
-   let images =  await  getFiles()
-    images =  _.chain(images).map(i=>{
+app.get('/images', async (req, res) => {
+    let images = await getFiles()
+    images = _.chain(images).map(i => {
         return `${URL}${i}`
-    }).filter(i=>{
+    }).filter(i => {
         return /\.(png|jpg|gif)$/i.test(i)
     }).value()
-   res.json({
-       success:true,
-       images:images
-   })
+    res.json({
+        success: true,
+        images: images
+    })
 })
 
 
